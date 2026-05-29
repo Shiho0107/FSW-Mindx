@@ -1,0 +1,98 @@
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.contactSearchBox {
+  padding: 8px 12px 4px;
+}
+
+.contactSearchInput {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #e8e8e8;
+  font-size: 13px;
+  background: #f8f8fb;
+  outline: none;
+  transition: border 0.2s;
+}
+.contactSearchInput:focus { border-color: #4D44B5; }
+
+.contactEmpty {
+  padding: 24px;
+  text-align: center;
+  color: #A098AE;
+  font-size: 13px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: left;
+  transition: background 0.15s;
+  width: 100%;
+}
+.contactItem:hover  { background: #f4f2ff; }
+.contactItem.active { background: #ede9ff; }
+
+/* Avatar */
+.contactAvatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* Presence dot overlaid on avatar */
+.presenceDot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+.presenceDot.online  { background: #22c55e; }
+.presenceDot.offline { background: #cbd5e1; }
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.contactName {
+  font-weight: 600;
+  font-size: 13px;
+  color: #303972;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contactMeta {
+  font-size: 11px;
+  color: #A098AE;
+}
+
+.presenceLabel.online  { color: #22c55e; font-weight: 600; }
+.presenceLabel.offline { color: #A098AE; }

@@ -1,0 +1,27 @@
+/* Extends Base Profile Styles */
+@import "../Students/StudentDetails.css";
+
+.aboutSection {
+  margin-top: 24px;
+}
+
+.aboutSection h3 {
+  font-size: 16px;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.aboutSection p, .aboutSection li {
+  font-size: 14px;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.aboutSection ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.aboutSection ul li strong {
+  color: var(--color-dark);
+}

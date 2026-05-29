@@ -1,0 +1,153 @@
+/* Reusing top-level page alignment */
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+}
+
+.mainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sideCol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Profile specific styles */
+.profileCard {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.profileBanner {
+  height: 120px;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  position: relative;
+}
+
+.profileAvatar {
+  width: 120px;
+  height: 120px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  border: 6px solid var(--color-white);
+  position: absolute;
+  bottom: -40px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: var(--color-white);
+  font-weight: bold;
+}
+
+.profileInfoBlock {
+  padding: 56px 32px 32px;
+}
+
+.profileName {
+  font-size: 24px;
+  color: var(--color-dark);
+  font-weight: 700;
+}
+
+.profileRole {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: 24px;
+}
+
+.detailList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detailItem .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FEF0EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailItem .label {
+  display: block;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.detailItem .value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+/* Payment tracking block */
+.paymentCard {
+  padding: 24px;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+}
+
+/* Side Schedule Cards */
+.scheduleDate {
+  font-size: 14px;
+  color: var(--color-dark);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scheduleItem {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border-left: 4px solid transparent; /* modified dynamically */
+}
+
+.scheduleItem h4 {
+  font-size: 14px;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+}
+
+.scheduleItem p {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.timeRow {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.border-purple { border-left-color: var(--color-primary); }
+.border-orange { border-left-color: var(--color-secondary); }
+.border-yellow { border-left-color: var(--color-accent);  }

@@ -1,0 +1,192 @@
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 100%);
+  padding: 24px;
+}
+
+.loginCard {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loginBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.loginBrandIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-primary, #4D44B5);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginBrandName {
+  font-size: 22px;
+  font-weight: 700;
+  color: #303972;
+}
+
+.loginTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #303972;
+  margin: 4px 0 0;
+}
+
+.loginSubtitle {
+  font-size: 13px;
+  color: #A098AE;
+  margin: 0 0 16px;
+}
+
+.loginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loginGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loginGroup label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #303972;
+}
+
+.loginGroup input {
+  padding: 12px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  color: #303972;
+}
+
+.loginGroup input:focus {
+  border-color: var(--color-primary, #4D44B5);
+}
+
+.loginBtn {
+  margin-top: 8px;
+  padding: 13px;
+  background: var(--color-primary, #4D44B5);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  width: 100%;
+}
+
+.loginBtn:hover:not(:disabled) {
+  background: #3b34a0;
+}
+
+.loginBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.loginHint {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #A098AE;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.loginHint code {
+  background: #f0f0f0;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 12px;
+  color: #303972;
+}
+
+/* Dev bootstrap panel — shown only when /accounts not initialized */
+.seedBox {
+  width: 100%;
+  margin-top: 8px;
+  background: #fff8e1;
+  border: 1.5px solid #ffcc02;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.seedTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a5200;
+}
+
+.seedDesc {
+  font-size: 12px;
+  color: #7a5200;
+  line-height: 1.5;
+}
+
+.seedBtn {
+  padding: 10px;
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.seedBtn:hover:not(:disabled) {
+  background: #d97706;
+}
+
+.seedBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.seedNote {
+  font-size: 11px;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+.seedNote code {
+  background: rgba(0,0,0,0.07);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 11px;
+}
+

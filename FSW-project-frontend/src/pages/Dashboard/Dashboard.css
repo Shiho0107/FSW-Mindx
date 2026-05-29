@@ -1,0 +1,212 @@
+/* ── Dashboard Page ──────────────────────────────────────────────────────── */
+
+/* Page header row */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.pageTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+/* ── Stat Cards ─────────────────────────────────────────────────────────── */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.statCard {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.statIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.statIcon.purple    { background: #EAE8F9; }
+.statIcon.orange    { background: #FEF0EA; }
+.statIcon.yellow    { background: #FEF8E8; }
+.statIcon.deepBlue  { background: #E8ECF9; }
+
+.statValue {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1.1;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+/* ── Main two-column grid ────────────────────────────────────────────────── */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+}
+
+/* ── Card wrapper ────────────────────────────────────────────────────────── */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-align: left;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #f0f0f8;
+}
+
+.table td {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--color-dark);
+  border-bottom: 1px solid #f8f8fc;
+  vertical-align: middle;
+}
+
+.table tr:last-child td { border-bottom: none; }
+
+/* Student name cell */
+.studentCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.miniAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+
+.amount {
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+/* ── Recent Students sidebar list ─────────────────────────────────────────── */
+.recentHeader {
+  margin-bottom: 16px;
+}
+
+.recentSubtitle {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.recentItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recentInfo { flex: 1; }
+.recentName  { font-size: 14px; font-weight: 600; color: var(--color-dark); }
+.recentClass { font-size: 12px; color: var(--color-muted); }
+
+.mailBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--color-primary);
+  transition: background 0.2s;
+}
+.mailBtn:hover { background: #e0dff7; }
+
+/* ── Loading / Error states ──────────────────────────────────────────────── */
+.stateBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  font-size: 14px;
+  color: var(--color-muted);
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0dff7;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.errorMsg {
+  color: var(--color-danger);
+  font-weight: 500;
+}

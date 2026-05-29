@@ -1,0 +1,22 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Payment status */
+.badge--complete   { background: #E8F8F4; color: #4CBC9A; }
+.badge--pending    { background: #F5F5F5; color: #A098AE; }
+.badge--canceled   { background: #FEF0F0; color: #F0544F; }
+.badge--active     { background: #EAE8F9; color: #4D44B5; }
+
+/* Grade colours */
+.badge--grade-vii-a  { background: #FEF0EA; color: #FB7D5B; }
+.badge--grade-vii-b  { background: #FEF8E8; color: #C79B00; }
+.badge--grade-vii-c  { background: #EAE8F9; color: #4D44B5; }
+.badge--grade-viii-a { background: #E8F8F4; color: #4CBC9A; }

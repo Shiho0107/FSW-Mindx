@@ -1,0 +1,22 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border-radius: 24px;
+  padding: 10px 20px;
+  min-width: 240px;
+}
+
+.searchBar__icon { font-size: 15px; color: var(--color-muted); }
+
+.searchBar__input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--color-dark);
+  width: 100%;
+}
+.searchBar__input::placeholder { color: var(--color-muted); }

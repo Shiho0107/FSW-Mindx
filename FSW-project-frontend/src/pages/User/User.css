@@ -1,0 +1,4 @@
+.userPage {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,122 @@
+.addStudentPage {
+  max-width: 900px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--color-dark);
+}
+
+.addStudentForm {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.formSection {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: var(--color-dark);
+  font-size: 14px;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="tel"],
+.formGroup input[type="date"],
+.formGroup textarea {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid #E2E8F0;
+  background: var(--color-white);
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--color-dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.fileUploadPlaceholder {
+  border: 2px dashed #CBD5E1;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 24px;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.formActions {
+  padding: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.toast {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.toast--success {
+  background: #E8F8F4;
+  color: #4CBC9A;
+}
+
+.toast--error {
+  background: #FEF0F0;
+  color: #F0544F;
+}

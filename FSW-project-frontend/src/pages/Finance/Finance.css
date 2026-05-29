@@ -1,0 +1,56 @@
+.financeGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.statInfoBlock {
+  flex: 1;
+}
+
+.statTrend {
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.trend--success { color: var(--color-success); }
+.trend--danger { color: var(--color-danger); }
+
+.fullSpan {
+  grid-column: 1 / -1;
+}
+
+.chartPlaceholder {
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 20px 0;
+  border-bottom: 2px solid var(--color-surface);
+  position: relative;
+}
+
+.dummyChartBars {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar {
+  width: 24px;
+  border-radius: 4px 4px 0 0;
+}
+
+.groupA { background: var(--color-secondary); }
+.groupB { background: var(--color-accent); }
+
+.dateFilter {
+  border: 1px solid #E2E8F0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  outline: none;
+  font-family: inherit;
+  color: var(--color-dark);
+}

@@ -1,0 +1,33 @@
+/* Skeleton placeholder — shimmer via background-position animation (GPU composited) */
+.skeleton {
+  background: linear-gradient(90deg, #f0eefc 25%, #e0dcf8 50%, #f0eefc 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 4px;
+  will-change: background-position;
+}
+
+.skeleton.rounded {
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton card layout */
+.skeletonCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.skeletonLines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,0 +1,16 @@
+@import "../../Students/AddStudent/AddStudent.css";
+
+/* Re-using same layout rules as AddStudent for consistency */
+.addTeacherPage {
+  max-width: 900px;
+}
+
+.addTeacherForm {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Inherit utility classes and spacing from AddStudent.css via global/CSS module approach, or copy the necessary formGrid styles here */
+/* In a real project with full tokenization we would extract form logic to common components. We will re-use the same structure. */

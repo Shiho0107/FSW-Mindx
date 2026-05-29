@@ -1,0 +1,48 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+/* Sizes */
+.btn--sm  { padding: 6px 14px;  font-size: 12px; }
+.btn--md  { padding: 10px 20px; font-size: 14px; }
+.btn--lg  { padding: 13px 28px; font-size: 15px; }
+
+/* Variants */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn--primary:hover { background: #3d35a0; }
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+.btn--secondary:hover { background: #e86b48; }
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.btn--outline:hover { background: #f0effe; }
+
+.btn--ghost {
+  background: var(--color-surface);
+  color: var(--color-dark);
+  border-color: transparent;
+}
+.btn--ghost:hover { background: #e7e6f7; }
+
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn__icon { display: flex; align-items: center; }
