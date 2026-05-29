@@ -53,14 +53,12 @@ backend/
 - `GET /api/students` - Get all students
 - `POST /api/students` - Create student
 - `GET /api/students/:id` - Get student by ID
-- `PUT /api/students/:id` - Update student
 - `DELETE /api/students/:id` - Delete student
 
 ### Teachers
 - `GET /api/teachers` - Get all teachers
 - `POST /api/teachers` - Create teacher
 - `GET /api/teachers/:id` - Get teacher by ID
-- `PUT /api/teachers/:id` - Update teacher
 - `DELETE /api/teachers/:id` - Delete teacher
 
 ### Events
@@ -70,25 +68,6 @@ backend/
 - `PUT /api/events/:id` - Update event
 - `DELETE /api/events/:id` - Delete event
 
-### Messages
-- `GET /api/messages` - Get messages (filter by conversationId via query param)
-- `POST /api/messages` - Send message
-- `GET /api/messages/:id` - Get single message
-- `PUT /api/messages/:id` - Edit message
-- `DELETE /api/messages/:id` - Delete message
-
-### Conversations
-- `GET /api/conversations` - Get all conversations
-- `POST /api/conversations` - Create conversation
-- `GET /api/conversations/:id` - Get conversation by ID
-- `PUT /api/conversations/:id` - Update conversation
-- `DELETE /api/conversations/:id` - Delete conversation
-
-### Accounts, Activity, Food, Finance, Payments, Stats
-- Same CRUD pattern as above
-
-### Health Check
-- `GET /api/health` - Server status
 
 ## Setup Instructions
 
@@ -147,37 +126,11 @@ VITE_API_KEY=your-api-key
 VITE_BASE_URL=http://localhost:5000/api
 ```
 
-## API Request Example
+## Admin acount
 
-```javascript
-// Example: Create a student
-const response = await fetch('http://localhost:5000/api/students', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    name: 'John Doe',
-    email: 'john@example.com',
-    class: '10A',
-    phone: '+1234567890'
-  })
-});
+admin@school.com
+admin123
 
-const data = await response.json();
-console.log(data);
-```
-
-## TODO
-
-- [ ] Implement JWT authentication middleware
-- [ ] Add password hashing with bcryptjs
-- [ ] Implement `/auth/register` and `/auth/login` endpoints
-- [ ] Add input validation middleware
-- [ ] Add logging middleware
-- [ ] Create error handling utilities
-- [ ] Add rate limiting
-- [ ] Implement file upload for avatars
-- [ ] Add API documentation (Swagger/OpenAPI)
-- [ ] Set up unit tests with Jest
 
 ## Environment Variables
 
@@ -189,20 +142,6 @@ console.log(data);
 | `JWT_SECRET` | Secret for JWT tokens | Any strong string |
 | `FRONTEND_URL` | Frontend origin for CORS | `http://localhost:5173` |
 
-## Troubleshooting
-
-**"Cannot connect to MongoDB"**
-- Check your connection string in `.env`
-- Verify IP whitelist in MongoDB Atlas (or use 0.0.0.0/0)
-- Check your username/password is correct
-
-**"Port 5000 already in use"**
-- Change PORT in `.env`
-- Or kill the process: `lsof -ti:5000 | xargs kill -9`
-
-**"Module not found"**
-- Run `npm install`
-- Check file paths in imports
 
 ## License
 
