@@ -28,6 +28,10 @@ const eventSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Student',
     }],
+    absentees: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Student',
+    }],
     color: {
       type: String,
       default: 'purple',

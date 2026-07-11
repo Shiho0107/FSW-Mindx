@@ -1,28 +1,33 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { 
+  LayoutDashboard, 
+  GraduationCap, 
+  Users, 
+  Calendar, 
+  KeyRound, 
+  User, 
+  LogOut 
+} from "lucide-react";
 import "./Sidebar.css";
 
 const ADMIN_NAV = [
-  { to: "/",          label: "Dashboard",      icon: "🏠", end: true },
-  { to: "/students",  label: "Students",       icon: "👨‍🎓" },
-  { to: "/teachers",  label: "Teachers",       icon: "👩‍🏫" },
-  { to: "/events",    label: "Class Schedule", icon: "📅" },
-  { to: "/accounts",  label: "Accounts",       icon: "🔑" },
-  { to: "/finance",   label: "Finance",        icon: "💰" },
-  { to: "/food",      label: "Food",           icon: "🍽️" },
-  { to: "/user",      label: "User",           icon: "👤" },
-  { to: "/chat",      label: "Chat",           icon: "💬" },
-  { to: "/activity",  label: "Latest Activity",icon: "🔔" },
+  { to: "/",          label: "Dashboard",      icon: LayoutDashboard, end: true },
+  { to: "/students",  label: "Students",       icon: GraduationCap },
+  { to: "/teachers",  label: "Teachers",       icon: Users },
+  { to: "/events",    label: "Class Schedule", icon: Calendar },
+  { to: "/accounts",  label: "Accounts",       icon: KeyRound },
+  { to: "/user",      label: "User",           icon: User },
 ];
 
 const STUDENT_NAV = [
-  { to: "/calendar",  label: "My Calendar",   icon: "📅" },
-  { to: "/chat",      label: "Chat",          icon: "💬" },
+  { to: "/calendar",  label: "My Calendar",   icon: Calendar },
+  { to: "/user",      label: "User",           icon: User },
 ];
 
 const TEACHER_NAV = [
-  { to: "/calendar",  label: "My Classes",    icon: "📅" },
-  { to: "/chat",      label: "Chat",          icon: "💬" },
+  { to: "/calendar",  label: "My Classes",    icon: Calendar },
+  { to: "/user",      label: "User",           icon: User },
 ];
 
 const Sidebar = () => {
@@ -49,7 +54,7 @@ const Sidebar = () => {
 
       {/* Navigation */}
       <nav className="nav">
-        {navItems.map(({ to, label, icon, end }) => (
+        {navItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
@@ -58,7 +63,7 @@ const Sidebar = () => {
               ["navItem", isActive ? "active" : ""].filter(Boolean).join(" ")
             }
           >
-            <span className="navIcon">{icon}</span>
+            <span className="navIcon"><Icon size={20} /></span>
             <span>{label}</span>
           </NavLink>
         ))}
@@ -72,7 +77,7 @@ const Sidebar = () => {
             <span className="sidebarUserRole">{role}</span>
           </div>
           <button className="logoutBtn" onClick={handleLogout} title="Logout">
-            🚪
+            <LogOut size={20} />
           </button>
         </div>
       )}

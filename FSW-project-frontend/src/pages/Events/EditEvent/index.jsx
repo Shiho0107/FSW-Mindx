@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../../../context/AuthContext";
 import eventApi from "../../../api/eventApi";
 import studentApi from "../../../api/studentApi";
 import teacherApi from "../../../api/teacherApi";
@@ -10,6 +11,7 @@ import "../AddEvent/AddEvent.css";
 const EditEvent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { role } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [students, setStudents] = useState([]);
@@ -18,12 +20,12 @@ const EditEvent = () => {
   const [formData, setFormData] = useState({
     title: "",
     className: "",
-    category: "",
     date: "",
     startTime: "",
     endTime: "",
     teacherId: "",
     attendees: [],
+    absentees: [],
     color: "purple",
   });
 
@@ -37,12 +39,12 @@ const EditEvent = () => {
         setFormData({
           title: event.title ?? "",
           className: event.className ?? "",
-          category: event.category ?? "",
           date: event.date ?? "",
           startTime: event.startTime ?? "",
           endTime: event.endTime ?? "",
           teacherId: event.teacherId ?? "",
           attendees: event.attendees ?? [],
+          absentees: event.absentees ?? [],
           color: event.color ?? "purple",
         });
         setStudents(stu);
@@ -66,6 +68,15 @@ const EditEvent = () => {
     }));
   };
 
+  const toggleAbsentee = (sid) => {
+    setFormData((prev) => ({
+      ...prev,
+      absentees: prev.absentees.includes(sid)
+        ? prev.absentees.filter((a) => a !== sid)
+        : [...prev.absentees, sid],
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.title.trim() || !formData.date || !formData.startTime || !formData.endTime) {
@@ -79,8 +90,8 @@ const EditEvent = () => {
     setSaving(true);
     try {
       await eventApi.update(id, formData);
-      toast.success("Class/Event updated successfully!");
-      navigate("/events");
+      toast.success(role === "teacher" ? "Attendance recorded successfully!" : "Class/Event updated successfully!");
+      navigate(role === "teacher" ? "/calendar" : "/events");
     } catch (err) {
       toast.error(err.message || "Failed to update.");
     } finally {
@@ -93,86 +104,165 @@ const EditEvent = () => {
   return (
     <div className="addEventPage">
       <div className="pageHeader">
-        <h1 className="pageTitle">Edit Class / Event</h1>
+        <h1 className="pageTitle">
+          {role === "teacher" ? "Class Attendance" : "Edit Class / Event"}
+        </h1>
       </div>
 
       <form onSubmit={handleSubmit} className="addEventForm card">
+        {role !== "teacher" && (
+          <>
+            <section className="formSection">
+              <h2 className="sectionTitle">Class / Event Details</h2>
+              <div className="formGrid">
+                <div className="formGroup">
+                  <label>Title *</label>
+                  <input required name="title" value={formData.title} onChange={handleChange} />
+                </div>
+                <div className="formGroup">
+                  <label>Class Name</label>
+                  <input name="className" value={formData.className} onChange={handleChange} />
+                </div>
+
+                <div className="formGroup">
+                  <label>Color</label>
+                  <select name="color" value={formData.color} onChange={handleChange}>
+                    <option value="purple">Purple</option>
+                    <option value="orange">Orange</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                  </select>
+                </div>
+                <div className="formGroup">
+                  <label>Date *</label>
+                  <input type="date" required name="date" value={formData.date} onChange={handleChange} />
+                </div>
+                <div className="formGroup">
+                  <label>Start Time *</label>
+                  <input type="time" required name="startTime" value={formData.startTime} onChange={handleChange} />
+                </div>
+                <div className="formGroup">
+                  <label>End Time *</label>
+                  <input type="time" required name="endTime" value={formData.endTime} onChange={handleChange} />
+                </div>
+              </div>
+            </section>
+
+            <section className="formSection">
+              <h2 className="sectionTitle">Assign Teacher</h2>
+              <div className="formGroup">
+                <select name="teacherId" value={formData.teacherId} onChange={handleChange}>
+                  <option value="">— Select Teacher —</option>
+                  {teachers.map((t) => (
+                    <option key={t._id} value={t._id}>
+                      {t.firstName} {t.lastName} {t.subject ? `(${t.subject})` : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </section>
+          </>
+        )}
+
         <section className="formSection">
-          <h2 className="sectionTitle">Class / Event Details</h2>
-          <div className="formGrid">
-            <div className="formGroup">
-              <label>Title *</label>
-              <input required name="title" value={formData.title} onChange={handleChange} />
-            </div>
-            <div className="formGroup">
-              <label>Class Name</label>
-              <input name="className" value={formData.className} onChange={handleChange} />
-            </div>
-            <div className="formGroup">
-              <label>Category</label>
-              <input name="category" value={formData.category} onChange={handleChange} />
-            </div>
-            <div className="formGroup">
-              <label>Color</label>
-              <select name="color" value={formData.color} onChange={handleChange}>
-                <option value="purple">Purple</option>
-                <option value="orange">Orange</option>
-                <option value="yellow">Yellow</option>
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-              </select>
-            </div>
-            <div className="formGroup">
-              <label>Date *</label>
-              <input type="date" required name="date" value={formData.date} onChange={handleChange} />
-            </div>
-            <div className="formGroup">
-              <label>Start Time *</label>
-              <input type="time" required name="startTime" value={formData.startTime} onChange={handleChange} />
-            </div>
-            <div className="formGroup">
-              <label>End Time *</label>
-              <input type="time" required name="endTime" value={formData.endTime} onChange={handleChange} />
-            </div>
+          <h2 className="sectionTitle">Class Attendance</h2>
+          <p className="sectionHint">Mark which students were absent from this class.</p>
+          <div className="attendanceWrapper" style={{
+            border: "1.5px solid #e0e0e0",
+            borderRadius: "8px",
+            overflow: "hidden",
+            marginTop: "12px",
+            background: "#fff"
+          }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px", textAlign: "left" }}>
+              <thead style={{ background: "#f5f5ff" }}>
+                <tr>
+                  <th style={{ padding: "10px 12px", color: "#303972", borderBottom: "1px solid #e0e0e0" }}>Student ID</th>
+                  <th style={{ padding: "10px 12px", color: "#303972", borderBottom: "1px solid #e0e0e0" }}>Name</th>
+                  <th style={{ padding: "10px 12px", color: "#303972", borderBottom: "1px solid #e0e0e0", textAlign: "center" }}>Status</th>
+                  <th style={{ padding: "10px 12px", color: "#303972", borderBottom: "1px solid #e0e0e0", textAlign: "right" }}>Toggle</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.filter(s => formData.attendees.includes(s._id)).map(s => {
+                  const isAbsent = formData.absentees.includes(s._id);
+                  return (
+                    <tr key={s._id} style={{ borderBottom: "1px solid #f0f0f0" }}>
+                      <td style={{ padding: "10px 12px", color: "#A098AE", fontFamily: "monospace" }}>#{s._id?.slice(-8).toUpperCase()}</td>
+                      <td style={{ padding: "10px 12px", color: "#303972", fontWeight: 600 }}>{s.firstName} {s.lastName}</td>
+                      <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                        <span style={{
+                          background: isAbsent ? "#ffebee" : "#e8f5e9",
+                          color: isAbsent ? "#c62828" : "#2e7d32",
+                          padding: "4px 10px",
+                          borderRadius: "20px",
+                          fontSize: "11px",
+                          fontWeight: "700"
+                        }}>
+                          {isAbsent ? "ABSENT" : "PRESENT"}
+                        </span>
+                      </td>
+                      <td style={{ padding: "10px 12px", textAlign: "right" }}>
+                        <button
+                          type="button"
+                          onClick={() => toggleAbsentee(s._id)}
+                          style={{
+                            background: isAbsent ? "var(--color-primary, #4D44B5)" : "#f0f0f0",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "4px 8px",
+                            fontSize: "11px",
+                            color: isAbsent ? "#fff" : "#303972",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            minWidth: "90px"
+                          }}
+                        >
+                          {isAbsent ? "Mark Present" : "Mark Absent"}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+                {students.filter(s => formData.attendees.includes(s._id)).length === 0 && (
+                  <tr>
+                    <td colSpan={4} style={{ padding: "12px", textAlign: "center", color: "#A098AE" }}>
+                      No students are currently assigned to this class. Assign students below to take attendance.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </section>
 
-        <section className="formSection">
-          <h2 className="sectionTitle">Assign Teacher</h2>
-          <div className="formGroup">
-            <select name="teacherId" value={formData.teacherId} onChange={handleChange}>
-              <option value="">— Select Teacher —</option>
-              {teachers.map((t) => (
-                <option key={t._id} value={t._id}>
-                  {t.firstName} {t.lastName} {t.subject ? `(${t.subject})` : ""}
-                </option>
+        {role !== "teacher" && (
+          <section className="formSection">
+            <h2 className="sectionTitle">Assign Students</h2>
+            <div className="attendeeGrid">
+              {students.map((s) => (
+                <label key={s._id} className="attendeeItem">
+                  <input
+                    type="checkbox"
+                    checked={formData.attendees.includes(s._id)}
+                    onChange={() => toggleAttendee(s._id)}
+                  />
+                  <span>{s.firstName} {s.lastName}</span>
+                </label>
               ))}
-            </select>
-          </div>
-        </section>
-
-        <section className="formSection">
-          <h2 className="sectionTitle">Assign Students</h2>
-          <div className="attendeeGrid">
-            {students.map((s) => (
-              <label key={s._id} className="attendeeItem">
-                <input
-                  type="checkbox"
-                  checked={formData.attendees.includes(s._id)}
-                  onChange={() => toggleAttendee(s._id)}
-                />
-                <span>{s.firstName} {s.lastName}</span>
-              </label>
-            ))}
-          </div>
-          {formData.attendees.length > 0 && (
-            <p className="selectedCount">{formData.attendees.length} student(s) selected</p>
-          )}
-        </section>
+            </div>
+            {formData.attendees.length > 0 && (
+              <p className="selectedCount">{formData.attendees.length} student(s) selected</p>
+            )}
+          </section>
+        )}
 
         <div className="formActions">
-          <Button type="button" variant="outline" onClick={() => navigate("/events")}>Cancel</Button>
-          <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save Changes"}</Button>
+          <Button type="button" variant="outline" onClick={() => navigate(role === "teacher" ? "/calendar" : "/events")}>Cancel</Button>
+          <Button type="submit" disabled={saving}>
+            {saving ? "Saving…" : (role === "teacher" ? "Save Attendance" : "Save Changes")}
+          </Button>
         </div>
       </form>
     </div>

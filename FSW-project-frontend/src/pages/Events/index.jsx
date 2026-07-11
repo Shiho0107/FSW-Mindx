@@ -9,6 +9,7 @@ import Button from "../../components/common/Button";
 import CalendarGrid from "../../components/calendar/CalendarGrid";
 import ScheduleList from "../../components/calendar/ScheduleList";
 import { buildCalendar, buildEventDayMap, toDateStr, MONTHS, pad } from "../../utils/dateUtils";
+import { Plus, Calendar } from "lucide-react";
 import "./Events.css";
 
 const Events = () => {
@@ -64,8 +65,8 @@ const Events = () => {
         onNext={nextMonth}
         title="Class Schedule"
         headerAction={
-          <Link to="/events/add">
-            <Button variant="primary" leftIcon="➕">New Class</Button>
+          <Link to={`/events/add?date=${selectedDateStr}`}>
+            <Button variant="primary" leftIcon={<Plus size={18} />}>New Class</Button>
           </Link>
         }
       />
@@ -89,8 +90,9 @@ const Events = () => {
           <div style={{ marginTop: 16, borderTop: "1px solid #f0f0f0", paddingTop: 12 }}>
             <p style={{ fontSize: 12, color: "#A098AE", fontWeight: 600 }}>UPCOMING</p>
             {allEvents.slice(0, 3).map((evt, idx) => (
-              <div key={evt._id || idx} style={{ fontSize: 12, color: "#303972", marginTop: 6 }}>
-                📅 {evt.date} — {evt.title}
+              <div key={evt._id || idx} style={{ fontSize: 12, color: "#303972", marginTop: 6, display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Calendar size={12} style={{ color: "var(--color-primary)" }} />
+                <span>{evt.date} — {evt.title}</span>
                 {evt.teacherId && (
                   <span style={{ color: "#A098AE" }}>
                     {" "}· {getTeacherName(evt.teacherId, teacherList) ?? "Teacher"}

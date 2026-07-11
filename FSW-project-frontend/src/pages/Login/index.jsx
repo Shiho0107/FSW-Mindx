@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import authService from "../../services/authService";
+import { AlertTriangle } from "lucide-react";
 import "./Login.css";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,7 +80,9 @@ const Login = () => {
 
         {showSeed && (
           <div className="seedBox">
-            <p className="seedTitle">⚠️ First-time setup</p>
+            <p className="seedTitle" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <AlertTriangle size={18} /> First-time setup
+            </p>
             <p className="seedDesc">
               Accounts not initialized. Click below to create the default admin
               account on the mock API.

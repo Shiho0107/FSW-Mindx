@@ -8,6 +8,7 @@ import Button from "../../components/common/Button";
 import Pagination from "../../components/common/Pagination";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 import { initials } from "../../utils/format";
+import { Plus, Phone, Mail, Eye, Trash2 } from "lucide-react";
 import "./Students.css";
 
 const ITEMS_PER_PAGE = 10;
@@ -98,7 +99,7 @@ const Students = () => {
               <option value="Oldest">Oldest</option>
             </select>
             <Link to="/students/add">
-              <Button leftIcon="➕" variant="primary">New Student</Button>
+              <Button leftIcon={<Plus size={18} />} variant="primary">New Student</Button>
             </Link>
           </div>
         </div>
@@ -144,18 +145,26 @@ const Students = () => {
                     <td>{student.parentName || "—"}</td>
                     <td>{student.city || "—"}</td>
                     <td>
-                      <div className="contactRow">
-                        <button className="iconBtn smallBtn" title="Call">📞</button>
-                        <button className="iconBtn smallBtn" title="Email">✉️</button>
+                      <div className="contactRow" style={{ display: 'flex', gap: '4px' }}>
+                        <button className="iconBtn smallBtn" title="Call"><Phone size={14} /></button>
+                        <button className="iconBtn smallBtn" title="Email"><Mail size={14} /></button>
                       </div>
                     </td>
                     <td>
                       <span className={`gradeBadge grade-${student.grade?.replace(' ', '-')}`}>{student.grade || "—"}</span>
                     </td>
                     <td>
-                      <div style={{ display: "flex", gap: "8px" }}>
-                        <Link to={`/students/${student._id}`} title="View"><span style={{fontSize: 16}}>👁️</span></Link>
-                        <button onClick={() => handleDelete(student._id)} title="Delete" style={{fontSize: 16, color: "var(--color-danger)"}}>🗑️</button>
+                      <div style={{ display: "flex", gap: "8px", alignItems: 'center' }}>
+                        <Link to={`/students/${student._id}`} title="View" style={{ display: 'inline-flex', alignItems: 'center' }}>
+                          <Eye size={16} style={{ color: "var(--color-primary)" }} />
+                        </Link>
+                        <button 
+                          onClick={() => handleDelete(student._id)} 
+                          title="Delete" 
+                          style={{ border: "none", background: "none", cursor: "pointer", display: 'inline-flex', alignItems: 'center', padding: 0 }}
+                        >
+                          <Trash2 size={16} style={{ color: "var(--color-danger)" }} />
+                        </button>
                       </div>
                     </td>
                   </tr>

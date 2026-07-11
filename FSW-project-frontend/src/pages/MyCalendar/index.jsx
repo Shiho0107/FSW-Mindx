@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import eventApi from "../../api/eventApi";
@@ -7,9 +8,11 @@ import { getTeacherName } from "../../utils/format";
 import CalendarGrid from "../../components/calendar/CalendarGrid";
 import ScheduleList from "../../components/calendar/ScheduleList";
 import { buildCalendar, buildEventDayMap, toDateStr, MONTHS, pad } from "../../utils/dateUtils";
+import { Calendar } from "lucide-react";
 import "./MyCalendar.css";
 
 const MyCalendar = () => {
+  const navigate = useNavigate();
   const { user, role } = useAuth();
   const today = new Date();
   const [year, setYear]       = useState(today.getFullYear());
@@ -59,8 +62,8 @@ const MyCalendar = () => {
       </div>
 
       {myEvents.length === 0 ? (
-        <div className="card" style={{ padding: 32, textAlign: "center", color: "#A098AE" }}>
-          <p style={{ fontSize: 36, marginBottom: 12 }}>📅</p>
+        <div className="card" style={{ padding: 32, textAlign: "center", color: "#A098AE", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Calendar size={48} style={{ marginBottom: 12, color: "var(--color-primary)" }} />
           <p>
             {role === "teacher"
               ? "No classes assigned to you yet."
@@ -90,7 +93,12 @@ const MyCalendar = () => {
               {dayEvents.length} class(es) scheduled
             </p>
 
-            <ScheduleList events={dayEvents} teachers={teacherList} role={role} />
+            <ScheduleList 
+              events={dayEvents} 
+              teachers={teacherList} 
+              role={role} 
+              onEdit={(evt) => navigate(`/events/${evt._id}/edit`)}
+            />
 
             {/* All assigned classes list */}
             <div style={{ marginTop: 16, borderTop: "1px solid #f0f0f0", paddingTop: 12 }}>

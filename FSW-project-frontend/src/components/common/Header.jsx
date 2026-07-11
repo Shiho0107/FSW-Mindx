@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Search, Bell, LogOut } from "lucide-react";
 import "./Header.css";
 
 const ROLE_LABELS = { admin: "Admin", teacher: "Teacher", student: "Student" };
@@ -19,7 +20,7 @@ const Header = () => {
     <header className="header">
       {/* Search */}
       <div className="search">
-        <span className="searchIcon">🔍</span>
+        <Search size={20} className="searchIcon" style={{ color: "var(--color-muted)" }} />
         <input
           className="searchInput"
           type="text"
@@ -31,7 +32,7 @@ const Header = () => {
       {/* Right actions */}
       <div className="actions">
         <button className="iconBtn" aria-label="Notifications">
-          🔔
+          <Bell size={20} style={{ color: "var(--color-muted)" }} />
           <span className="badge" aria-hidden="true" />
         </button>
 
@@ -51,7 +52,7 @@ const Header = () => {
             title="Logout"
             aria-label="Logout"
           >
-            🚪
+            <LogOut size={20} />
           </button>
         )}
       </div>

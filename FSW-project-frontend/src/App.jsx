@@ -12,14 +12,9 @@ import AddStudent from "./pages/Students/AddStudent/index";
 import Teachers from "./pages/Teachers/index";
 import TeacherDetails from "./pages/Teachers/TeacherDetails";
 import AddTeacher from "./pages/Teachers/AddTeacher/index";
-import Food from "./pages/Food/index";
-import Finance from "./pages/Finance/index";
 import Events from "./pages/Events/index";
 import AddEvent from "./pages/Events/AddEvent/index";
 import EditEvent from "./pages/Events/EditEvent/index";
-import Chat from "./pages/Chat/index";
-import Activity from "./pages/Activity/index";
-import FoodDetails from "./pages/Food/FoodDetails";
 import UserDashboard from "./pages/User/index";
 import MyCalendar from "./pages/MyCalendar/index";
 import Accounts from "./pages/Accounts/index";
@@ -91,7 +86,7 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="events/:id/edit" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "teacher"]}>
                 <EditEvent />
               </ProtectedRoute>
             } />
@@ -100,30 +95,9 @@ function App() {
                 <Accounts />
               </ProtectedRoute>
             } />
-            <Route path="finance" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <Finance />
-              </ProtectedRoute>
-            } />
-            <Route path="food" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <Food />
-              </ProtectedRoute>
-            } />
-            <Route path="food/:id" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <FoodDetails />
-              </ProtectedRoute>
-            } />
             <Route path="user" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "student", "teacher"]}>
                 <UserDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="chat" element={<Chat />} />
-            <Route path="activity" element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <Activity />
               </ProtectedRoute>
             } />
 
