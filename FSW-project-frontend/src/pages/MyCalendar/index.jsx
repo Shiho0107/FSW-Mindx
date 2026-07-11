@@ -37,6 +37,25 @@ const MyCalendar = () => {
     return [];
   }, [allEvents, user, role]);
 
+  const myEventsThisWeek = useMemo(() => {
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - dayOfWeek);
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    return myEvents.filter((evt) => {
+      if (!evt.date) return false;
+      const evtDate = new Date(`${evt.date}T00:00:00`);
+      return evtDate >= startOfWeek && evtDate <= endOfWeek;
+    });
+  }, [myEvents]);
+
   const selectedDateStr = toDateStr(year, month, selected);
   const dayEvents       = myEvents.filter((e) => e.date === selectedDateStr);
 
@@ -100,19 +119,18 @@ const MyCalendar = () => {
               onEdit={(evt) => navigate(`/events/${evt._id}/edit`)}
             />
 
-            {/* All assigned classes list */}
+            {/* Weekly classes list */}
             <div style={{ marginTop: 16, borderTop: "1px solid #f0f0f0", paddingTop: 12 }}>
               <p style={{ fontSize: 12, color: "#A098AE", fontWeight: 600, marginBottom: 6 }}>
-                ALL MY CLASSES
+                MY CLASSES THIS WEEK
               </p>
-              {myEvents
+              {myEventsThisWeek
                 .slice()
-                .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? ""))
-                .slice(0, 5)
+                .sort((a, b) => (a.date ?? "").localeCompare(b.date ?? "") || (a.startTime ?? "").localeCompare(b.startTime ?? ""))
                 .map((evt, idx) => (
                   <div
                     key={evt._id || idx}
-                    style={{ fontSize: 12, color: "#303972", marginBottom: 4, display: "flex", justifyContent: "space-between", gap: 8 }}
+                    style={{ fontSize: 12, color: "#303972", marginBottom: 6, display: "flex", justifyContent: "space-between", gap: 8 }}
                   >
                     <span>
                       {evt.title}
@@ -125,8 +143,8 @@ const MyCalendar = () => {
                     <span style={{ color: "#A098AE", flexShrink: 0 }}>{evt.date}</span>
                   </div>
                 ))}
-              {myEvents.length > 5 && (
-                <p style={{ fontSize: 11, color: "#A098AE" }}>+{myEvents.length - 5} more…</p>
+              {myEventsThisWeek.length === 0 && (
+                <p style={{ fontSize: 11, color: "#A098AE" }}>No classes scheduled for this week.</p>
               )}
             </div>
           </div>

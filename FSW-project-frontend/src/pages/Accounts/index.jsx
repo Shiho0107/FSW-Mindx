@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { toast } from "react-toastify";
 import useFetch from "../../hooks/useFetch";
 import accountApi from "../../api/accountApi";
@@ -7,6 +7,7 @@ import { SkeletonCard } from "../../components/common/Skeleton";
 import { Trash2, Edit } from "lucide-react";
 import { hashPassword } from "../../utils/hashPassword";
 import Button from "../../components/common/Button";
+import SearchBar from "../../components/common/SearchBar";
 import "./Accounts.css";
 
 
@@ -24,6 +25,18 @@ const Accounts = () => {
   const onSuccess = (d) => setLocalData(d);
   const { data: fetched, loading, error } = useFetch(accountApi.getAll, [], onSuccess);
   const accounts = localData.length ? localData : (fetched ?? []);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredAccounts = useMemo(() => {
+    if (!searchTerm.trim()) return accounts;
+    const lower = searchTerm.toLowerCase();
+    return accounts.filter(acc => 
+      acc.name?.toLowerCase().includes(lower) || 
+      acc.email?.toLowerCase().includes(lower) ||
+      acc.role?.toLowerCase().includes(lower)
+    );
+  }, [accounts, searchTerm]);
 
   const [editingAccount, setEditingAccount] = useState(null);
   const [editForm, setEditForm] = useState({
@@ -100,10 +113,18 @@ const Accounts = () => {
     <div className="accountsPage">
       <div className="pageHeader">
         <h1 className="pageTitle">Accounts</h1>
-        <span style={{ fontSize: 13, color: "#A098AE" }}>{accounts.length} account(s)</span>
+        <span style={{ fontSize: 13, color: "#A098AE" }}>{filteredAccounts.length} account(s)</span>
       </div>
 
       <div className="card tableCard">
+        <div className="tableControls" style={{ padding: "20px 24px 0" }}>
+          <SearchBar 
+            value={searchTerm} 
+            onChange={setSearchTerm} 
+            placeholder="Search accounts..." 
+            className="accountSearch"
+          />
+        </div>
         <div className="tableWrapper">
           <table className="table dataTable">
             <thead>
@@ -116,14 +137,14 @@ const Accounts = () => {
               </tr>
             </thead>
             <tbody>
-              {accounts.length === 0 ? (
+              {filteredAccounts.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="emptyTable">
-                    No accounts found. Go to Login to seed admin.
+                    No accounts found.
                   </td>
                 </tr>
               ) : (
-                accounts.map((acc) => {
+                filteredAccounts.map((acc) => {
                   const rc = ROLE_COLORS[acc.role] ?? ROLE_COLORS.admin;
                   return (
                     <tr key={acc._id}>
