@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import useFetch from "../../hooks/useFetch";
@@ -7,8 +7,9 @@ import SearchBar from "../../components/common/SearchBar";
 import Button from "../../components/common/Button";
 import Pagination from "../../components/common/Pagination";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import StudentGroups from "./StudentGroups";
 import { initials } from "../../utils/format";
-import { Plus, Phone, Mail, Eye, Trash2 } from "lucide-react";
+import { Plus, Phone, Mail, Eye, Trash2, Users, UserCheck } from "lucide-react";
 import "./Students.css";
 
 const ITEMS_PER_PAGE = 10;
@@ -23,6 +24,7 @@ const Students = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("Newest");
+  const [activeTab, setActiveTab] = useState("all"); // "all" | "groups"
 
   // Local optimistic Delete handler
   const handleDelete = async (id) => {
@@ -70,16 +72,66 @@ const Students = () => {
   );
 
   // Reset page row when searching or sorting changes
-  useMemo(() => { setCurrentPage(1); }, [searchTerm, sortOrder]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, sortOrder]);
 
   if (loading && !localData.length) return <LoadingSpinner message="Loading students…" />;
   if (error) return <LoadingSpinner message="Failed to load students." />;
 
   return (
     <div className="studentsPage">
-      <div className="pageHeader">
+      <div className="pageHeader" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
         <h1 className="pageTitle">Students</h1>
+        
+        {/* TAB TOGGLE */}
+        <div style={{ display: "flex", background: "#E2E8F0", padding: "4px", borderRadius: "24px" }}>
+          <button
+            type="button"
+            onClick={() => setActiveTab("all")}
+            style={{
+              border: "none",
+              background: activeTab === "all" ? "#FFFFFF" : "transparent",
+              color: activeTab === "all" ? "var(--color-primary)" : "#64748B",
+              padding: "8px 18px",
+              borderRadius: "20px",
+              fontWeight: 600,
+              fontSize: "13px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              boxShadow: activeTab === "all" ? "0 2px 6px rgba(0,0,0,0.08)" : "none",
+              transition: "all 0.2s ease"
+            }}
+          >
+            <UserCheck size={16} /> All Students
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("groups")}
+            style={{
+              border: "none",
+              background: activeTab === "groups" ? "#FFFFFF" : "transparent",
+              color: activeTab === "groups" ? "var(--color-primary)" : "#64748B",
+              padding: "8px 18px",
+              borderRadius: "20px",
+              fontWeight: 600,
+              fontSize: "13px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              boxShadow: activeTab === "groups" ? "0 2px 6px rgba(0,0,0,0.08)" : "none",
+              transition: "all 0.2s ease"
+            }}
+          >
+            <Users size={16} /> Preset Groups (Cohorts)
+          </button>
+        </div>
       </div>
+
+      {activeTab === "groups" ? (
+        <StudentGroups />
+      ) : (
 
       <div className="card tableCard">
         <div className="tableControls">
@@ -186,6 +238,7 @@ const Students = () => {
           </div>
         )}
       </div>
+      )}
     </div>
   );
 };

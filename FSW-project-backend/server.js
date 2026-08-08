@@ -1,3 +1,5 @@
+import http from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -16,6 +18,7 @@ import foodRoutes from './routes/foodRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import statRoutes from './routes/statRoutes.js';
+import groupRoutes from './routes/groupRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import Account from './models/Account.js';
 import Event from './models/Event.js';
@@ -30,18 +33,24 @@ try {
 }
 
 const app = express();
+const httpServer = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:5173',                  // Your local Vite frontend
   'https://fsw-mindx-1.onrender.com'        // Your live Render frontend
 ];
 
+const io = new SocketIOServer(httpServer, {
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
+});
+
 // ─── MIDDLEWARE ───────────────────────────────────────────────────────────
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, Insomnia, or Postman)
     if (!origin) return callback(null, true);
-    
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     } else {
@@ -53,11 +62,56 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ─── SOCKET.IO REAL-TIME CHAT HANDLERS ──────────────────────────────────
+const onlineUsers = new Map(); // userId -> socketId
+
+io.on('connection', (socket) => {
+  console.log(`⚡ Socket connected: ${socket.id}`);
+
+  socket.on('user_online', (userId) => {
+    if (userId) {
+      onlineUsers.set(userId, socket.id);
+      socket.userId = userId;
+      io.emit('update_online_users', Array.from(onlineUsers.keys()));
+    }
+  });
+
+  socket.on('join_conversation', (conversationId) => {
+    socket.join(`conversation:${conversationId}`);
+  });
+
+  socket.on('leave_conversation', (conversationId) => {
+    socket.leave(`conversation:${conversationId}`);
+  });
+
+  socket.on('send_message', (messageData) => {
+    if (messageData && messageData.conversationId) {
+      socket.to(`conversation:${messageData.conversationId}`).emit('receive_message', messageData);
+      io.emit('conversation_updated', messageData.conversationId);
+    }
+  });
+
+  socket.on('typing', ({ conversationId, userId, userName }) => {
+    socket.to(`conversation:${conversationId}`).emit('user_typing', { conversationId, userId, userName });
+  });
+
+  socket.on('stop_typing', ({ conversationId, userId }) => {
+    socket.to(`conversation:${conversationId}`).emit('user_stop_typing', { conversationId, userId });
+  });
+
+  socket.on('disconnect', () => {
+    if (socket.userId) {
+      onlineUsers.delete(socket.userId);
+      io.emit('update_online_users', Array.from(onlineUsers.keys()));
+    }
+    console.log(`⚡ Socket disconnected: ${socket.id}`);
+  });
+});
+
 // ─── MONGODB CONNECTION ───────────────────────────────────────────────────
 mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log('✓ MongoDB connected');
-    // Drop stale indexes from older Account schema (e.g. username_1 unique on null)
     await Account.syncIndexes();
     await Event.syncIndexes();
     console.log('✓ Account & Event indexes synced');
@@ -68,6 +122,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/teachers', teacherRoutes);
+app.use('/api/groups', groupRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/accounts', accountRoutes);
 app.use('/api/messages', messageRoutes);
@@ -97,6 +152,6 @@ app.use((req, res) => {
 });
 
 // ─── START SERVER ───────────────────────────────────────────────────────────
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`✓ Server running on http://localhost:${PORT}`);
 });

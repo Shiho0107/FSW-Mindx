@@ -4,6 +4,9 @@ const accountApi = {
   /** GET /accounts — all accounts */
   getAll: (params = {}) => axiosClient.get("/accounts", { params }),
 
+  /** GET /accounts/scoped — role-scoped accounts directory */
+  getScoped: (params = {}) => axiosClient.get("/accounts/scoped", { params }),
+
   /** POST /accounts — create an account */
   create: (data) => axiosClient.post("/accounts", data),
 

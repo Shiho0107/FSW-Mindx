@@ -4,6 +4,7 @@ import accountController from '../controllers/accountController.js';
 const router = express.Router();
 
 router.get('/', accountController.getAll);
+router.get('/scoped', accountController.getScopedAccounts);
 router.post('/', accountController.create);
 router.get('/:id', accountController.getById);
 router.put('/:id', accountController.update);

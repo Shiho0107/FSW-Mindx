@@ -15,6 +15,7 @@ import AddTeacher from "./pages/Teachers/AddTeacher/index";
 import Events from "./pages/Events/index";
 import AddEvent from "./pages/Events/AddEvent/index";
 import EditEvent from "./pages/Events/EditEvent/index";
+import Messages from "./pages/Messages/index";
 import UserDashboard from "./pages/User/index";
 import MyCalendar from "./pages/MyCalendar/index";
 import Accounts from "./pages/Accounts/index";
@@ -93,6 +94,11 @@ function App() {
             <Route path="accounts" element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <Accounts />
+              </ProtectedRoute>
+            } />
+            <Route path="messages" element={
+              <ProtectedRoute allowedRoles={["admin", "student", "teacher"]}>
+                <Messages />
               </ProtectedRoute>
             } />
             <Route path="user" element={

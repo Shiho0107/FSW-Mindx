@@ -108,3 +108,102 @@
   gap: 12px;
   margin-top: 8px;
 }
+
+/* Cohort Filter Modal Styles */
+.filterModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.filterModal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow: hidden;
+  animation: filterModalSlide 0.2s ease-out;
+}
+
+@keyframes filterModalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.filterModalHeader {
+  padding: 18px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterModalHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #303972;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterModalBody {
+  padding: 20px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filterModalOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterModalOption:hover {
+  border-color: #4D44B5;
+  background: #f8fafc;
+}
+
+.filterModalOption.active {
+  border-color: #4D44B5;
+  background: #f5f5ff;
+  box-shadow: 0 2px 4px rgba(77, 68, 181, 0.08);
+}
+
+.filterModalFooter {
+  padding: 16px 24px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+

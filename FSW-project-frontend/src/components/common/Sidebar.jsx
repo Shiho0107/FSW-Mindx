@@ -7,6 +7,7 @@ import {
   Calendar, 
   KeyRound, 
   User, 
+  MessageSquare,
   LogOut 
 } from "lucide-react";
 import "./Sidebar.css";
@@ -16,17 +17,20 @@ const ADMIN_NAV = [
   { to: "/students",  label: "Students",       icon: GraduationCap },
   { to: "/teachers",  label: "Teachers",       icon: Users },
   { to: "/events",    label: "Class Schedule", icon: Calendar },
+  { to: "/messages",  label: "Messages",       icon: MessageSquare },
   { to: "/accounts",  label: "Accounts",       icon: KeyRound },
   { to: "/user",      label: "User",           icon: User },
 ];
 
 const STUDENT_NAV = [
   { to: "/calendar",  label: "My Calendar",   icon: Calendar },
+  { to: "/messages",  label: "Messages",       icon: MessageSquare },
   { to: "/user",      label: "User",           icon: User },
 ];
 
 const TEACHER_NAV = [
   { to: "/calendar",  label: "My Classes",    icon: Calendar },
+  { to: "/messages",  label: "Messages",       icon: MessageSquare },
   { to: "/user",      label: "User",           icon: User },
 ];
 

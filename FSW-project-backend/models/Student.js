@@ -35,6 +35,10 @@ const studentSchema = new mongoose.Schema(
     paymentMethod: String,
     photo: String,
     class: String,
+    groupId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group',
+    },
     avatar: String,
     parentContact: String,
     status: {
