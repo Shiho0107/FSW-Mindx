@@ -28,9 +28,6 @@ backend/
 │   ├── Message.js
 │   ├── Conversation.js
 │   ├── Activity.js
-│   ├── Food.js
-│   ├── Finance.js
-│   ├── Payment.js
 │   └── Stat.js
 ├── controllers/               # Business logic
 │   ├── crudController.js      # Generic CRUD controller
